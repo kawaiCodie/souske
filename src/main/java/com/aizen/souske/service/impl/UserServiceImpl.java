@@ -4,10 +4,12 @@ import com.aizen.souske.entity.User;
 import com.aizen.souske.repo.UserRepo;
 import com.aizen.souske.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -16,6 +18,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getUsers() {
+        log.info("Fetch all users");
         return userRepo.findAll();
     }
 
