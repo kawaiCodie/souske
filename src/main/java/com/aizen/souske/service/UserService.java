@@ -9,4 +9,6 @@ public interface UserService {
     List<User> getUsers();
 
     void addnewUser(UserRequest userRequest);
+
+    User getById(Integer id);
 }

@@ -31,4 +31,12 @@ public class UserController {
                 .status("200")
                 .build();
     }
+
+    @GetMapping("/id")
+    public Response getUserById(@RequestParam Integer id) {
+        userService.getById(id);
+        return Response.builder()
+                .status("200")
+                .build();
+    }
 }
