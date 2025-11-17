@@ -4,9 +4,11 @@ import com.aizen.souske.Exception.ResourceNotFoundException;
 import com.aizen.souske.entity.User;
 import com.aizen.souske.repo.UserRepo;
 import com.aizen.souske.request.UserRequest;
+import com.aizen.souske.request.UserUpdateRequest;
 import com.aizen.souske.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,16 +48,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(String id, User userRequest) {
+    public UserUpdateRequest updateUser(String id, UserUpdateRequest userRequest) {
 
-        Optional<User> curUser = userRepo.findByUserIdAndStatus(
+        Optional<User> currentUser = userRepo.findByUserIdAndStatus(
                 Integer.parseInt(id), 'A');
 
-        if (!curUser.isPresent()) {
+        if (!currentUser.isPresent()) {
             throw new IllegalArgumentException("User not found");
         }
 
-        User user = curUser.get();
+        User user = currentUser.get();
 
         if (userRequest.getUserName() != null) {
             user.setUserName(userRequest.getUserName());
@@ -65,7 +67,9 @@ public class UserServiceImpl implements UserService {
             user.setEmail(userRequest.getEmail());
         }
 
-        return userRepo.save(user);
+        User updatedUser= userRepo.save(user);
+        BeanUtils.copyProperties(updatedUser, userRequest);
+        return userRequest;
     }
 
 }

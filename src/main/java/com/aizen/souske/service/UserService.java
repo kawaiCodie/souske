@@ -2,6 +2,7 @@ package com.aizen.souske.service;
 
 import com.aizen.souske.entity.User;
 import com.aizen.souske.request.UserRequest;
+import com.aizen.souske.request.UserUpdateRequest;
 
 import java.util.List;
 
@@ -12,5 +13,5 @@ public interface UserService {
 
     User getUserById(String id);
 
-    User updateUser(String id, User user);
+    UserUpdateRequest updateUser(String id, UserUpdateRequest user);
 }

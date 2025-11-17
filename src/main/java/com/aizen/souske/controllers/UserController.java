@@ -2,8 +2,10 @@ package com.aizen.souske.controllers;
 
 import com.aizen.souske.entity.User;
 import com.aizen.souske.request.UserRequest;
+import com.aizen.souske.request.UserUpdateRequest;
 import com.aizen.souske.response.Response;
 import com.aizen.souske.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,8 +45,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public Response updateUser(@PathVariable String id, @RequestBody User user) {
-        User updatedUser = userService.updateUser(id, user);
+    public Response updateUser(@PathVariable String id,@Valid @RequestBody UserUpdateRequest request) {
+        UserUpdateRequest updatedUser = userService.updateUser(id, request);
         return Response.builder()
                 .status("200")
                 .data(updatedUser)
