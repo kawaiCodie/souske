@@ -21,10 +21,12 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void addnewUser(UserRequest userRequest) {
+    public void registerNewUser(UserRequest userRequest) {
         User user = new User();
         user.setUserName(userRequest.getUsername());
         user.setEmail(userRequest.getEmail());
+        user.setFirstName(userRequest.getFirstName());
+        user.setLastName(userRequest.getLastName());
         user.activate();
         userRepo.save(user);
     }
