@@ -52,4 +52,12 @@ public class UserController {
                 .data(updatedUser)
                 .build();
     }
+
+    @DeleteMapping("/{id}")
+    public Response deleteUser(@PathVariable String id) {
+        userService.deleteUser(id);
+        return Response.builder()
+                .status("200")
+                .build();
+    }
 }
