@@ -45,4 +45,27 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public User updateUser(String id, User userRequest) {
+
+        Optional<User> curUser = userRepo.findByUserIdAndStatus(
+                Integer.parseInt(id), 'A');
+
+        if (!curUser.isPresent()) {
+            throw new IllegalArgumentException("User not found");
+        }
+
+        User user = curUser.get();
+
+        if (userRequest.getUserName() != null) {
+            user.setUserName(userRequest.getUserName());
+        }
+
+        if (userRequest.getEmail() != null) {
+            user.setEmail(userRequest.getEmail());
+        }
+
+        return userRepo.save(user);
+    }
+
 }

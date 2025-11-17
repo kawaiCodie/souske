@@ -41,4 +41,13 @@ public class UserController {
                 .data(user)
                 .build();
     }
+
+    @PutMapping("/{id}")
+    public Response updateUser(@PathVariable String id, @RequestBody User user) {
+        User updatedUser = userService.updateUser(id, user);
+        return Response.builder()
+                .status("200")
+                .data(updatedUser)
+                .build();
+    }
 }

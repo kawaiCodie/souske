@@ -11,4 +11,6 @@ public interface UserService {
     void addnewUser(UserRequest userRequest);
 
     User getUserById(String id);
+
+    User updateUser(String id, User user);
 }
