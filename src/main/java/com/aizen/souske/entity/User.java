@@ -28,7 +28,7 @@ public class User {
     @Column(name = "status")
     private char status;
 
-    public void activate(){
+    public void activate() {
         status = 'A';
     }
 }

@@ -7,10 +7,10 @@ import com.aizen.souske.request.UserRequest;
 import com.aizen.souske.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void addnewUser(UserRequest userRequest){
+    public void addnewUser(UserRequest userRequest) {
         User user = new User();
         user.setUserName(userRequest.getUsername());
         user.setEmail(userRequest.getEmail());
@@ -31,15 +31,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getUsers() {
-        log.info("Fetch all users");
+        log.info("Fetching all users");
         return userRepo.findAll();
     }
 
     @Override
-    public User getById(Integer id) {
-        log.info("Fetch user By Id");
-        User user = userRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("User","Id",id));
-        return user;
+    public User getUserById(String id) {
+        Optional<User> user = userRepo.findByUserIdAndStatus(Integer.parseInt(id), 'A');
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new IllegalArgumentException("User not found");
+        }
     }
 
 }

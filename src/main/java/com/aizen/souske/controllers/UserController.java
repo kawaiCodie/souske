@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -32,11 +33,12 @@ public class UserController {
                 .build();
     }
 
-    @GetMapping("/id")
-    public Response getUserById(@RequestParam Integer id) {
-        userService.getById(id);
+    @GetMapping("/{id}")
+    public Response getUserById(@PathVariable String id) {
+        User user = userService.getUserById(id);
         return Response.builder()
                 .status("200")
+                .data(user)
                 .build();
     }
 }
