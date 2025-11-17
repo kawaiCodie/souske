@@ -25,9 +25,9 @@ public class UserController {
                 .build();
     }
 
-    @PostMapping("/addUser")
-    public Response addUser(@RequestBody UserRequest userRequest) {
-        userService.addnewUser(userRequest);
+    @PostMapping("/register")
+    public Response registerUser(@RequestBody UserRequest userRequest) {
+        userService.registerNewUser(userRequest);
         return Response.builder()
                 .status("200")
                 .build();
