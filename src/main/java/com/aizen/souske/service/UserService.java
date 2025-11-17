@@ -10,5 +10,5 @@ public interface UserService {
 
     void addnewUser(UserRequest userRequest);
 
-    User getById(Integer id);
+    User getUserById(String id);
 }
